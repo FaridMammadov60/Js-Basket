@@ -1,5 +1,6 @@
 let table = document.getElementById("table");
 let totalPrice = document.getElementById("totalPrice");
+
 let sumTotalPrice = 0;
 
 if (localStorage.getItem("basket") != null) {
@@ -32,6 +33,31 @@ if (localStorage.getItem("basket") != null) {
         let tdsubtotal = document.createElement("td");
         tdsubtotal.innerText = product.count * product.price;
 
+        btnminus.onclick = function () {
+            product.count--;
+            if (product.count == 0) {
+                tr.remove();
+            } else {
+                tdcount.innerText = product.count;
+                productCount.innerText = product.count;
+
+                //sumTotalPrice += product.count * product.price;
+                //totalPrice.innerText = sumTotalPrice;
+                tdcount.append(btnplyus);
+                tdcount.prepend(btnminus);
+            }
+
+        }
+        btnplyus.onclick = function () {
+            product.count++;
+            tdcount.innerText = product.count;
+            productCount.innerText = product.count;
+            sumTotalPrice = sumTotalPrice + product.price;
+            totalPrice.innerText = sumTotalPrice;
+            tdcount.append(btnplyus);
+            tdcount.prepend(btnminus);
+        }
+
         let remove = document.createElement("td");
         let btnremove = document.createElement("button");
         btnremove.innerText = "X";
@@ -39,8 +65,8 @@ if (localStorage.getItem("basket") != null) {
 
         tr.append(tdimage, tdname, tdprice, tdcount, tdsubtotal, remove);
 
-        btnremove.onclick = function () {            
-            Remove();
+        btnremove.onclick = function () {
+            tr.remove();
         }
 
         table.lastElementChild.append(tr);
@@ -48,13 +74,7 @@ if (localStorage.getItem("basket") != null) {
         sumTotalPrice += product.count * product.price;
         totalPrice.innerText = sumTotalPrice;
 
+
     });
 }
-function Remove() {
-    arr.map(product => {
-        let findArr = arr.find(p => p.id != product.id);
-        arr=findArr
-    })
-    return arr;
 
-}
