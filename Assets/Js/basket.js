@@ -41,6 +41,7 @@ if (localStorage.getItem("basket") != null) {
                 product.count--;
                 if (product.count == 0) {
                     sumTotalPrice -= parseFloat(product.price);
+                    totalPrice.innerText = sumTotalPrice;
                     tr.remove();
                 } else {
                     tdcount.innerText = product.count;
